@@ -1,0 +1,5 @@
+$("#mainaccountTransaction").html("<%= j render 'home/partials/people_owes' %>");
+$("#mainaccountBalance").html("<%= j render 'home/partials/account_balance' %>");
+$('#people_owes_body').append("<%= j render 'home/expenses/people_owes_table_row', transaction:@transaction %>")
+success_notice('<%= @message %>')
+$('#expense_modal').modal('hide');

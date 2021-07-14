@@ -1,0 +1,13 @@
+<tr class="transaction-<%= transaction.id %>" data-transaction="<%= transaction.id %>">
+  <th scope="row"><%= transaction.id %></th>
+  <td><%= transaction.recipient.email if transaction.donor.present? %></td>
+  <td>$<%= transaction.amount %></td>
+  <td><%= transaction.description %></td>
+  <td>
+    <select class="form-select transaction-status status_<%= transaction.status %>" name="" data-status="<%= transaction.status %>">
+      <% LoanMoney.statuses.keys.map { |w| [w.humanize, w] }.each do |index, value| %>
+        <option value="<%= value %>" <% if transaction.status == value %>selected<% end %>><%= index %></option>
+      <% end %>
+    </select>
+  </td>
+</tr>

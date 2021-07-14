@@ -1,0 +1,24 @@
+<%= form_for transaction, :url => {:controller => 'transactions', :action => 'create'}, :remote => true do |f| %>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">New Transaction</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <%= f.select :recipient, User.where.not(:id => current_user.id).all.collect {|p| [ p.email, p.id ] }, {:include_blank => "Select a recipient"}, { :multiple => false, :size => 0 ,:class=> "form-select" } %>
+    </div>
+    <div class="row section_gap md">
+      <%= f.text_field :description, :class=>"form-control", :placeholder => "Description" %>
+    </div>
+    <div class="row section_gap md">
+      <%= f.text_field :amount, :class=>"form-control", :placeholder => "Amount" %>
+    </div>
+    <div class="rows section_gap md">
+      <p class="">Note: A transaction cannot be removed after creation.</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-primary">Proceed</button>
+  </div>
+<% end %>

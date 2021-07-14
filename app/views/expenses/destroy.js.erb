@@ -1,0 +1,3 @@
+$('#expenses_table_body').find('.expense-'+<%= @expense_id %>).remove();
+$("#mainaccountBalance").html("<%= j render 'home/partials/account_balance'  %>");
+$("#mainaccountExpense").html("<%= j render 'home/partials/account_expense'  %>");

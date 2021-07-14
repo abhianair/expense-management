@@ -1,0 +1,11 @@
+<tr class="expense-<%= expense.id %>">
+  <th scope="row"><%= expense.id %></th>
+  <td><%= expense.description %></td>
+  <td>$<%= expense.amount %></td>
+  <td>
+    <%= link_to "Edit", edit_expense_path(expense), remote:true %>
+  </td>
+  <td>
+    <%= link_to 'Delete', expense, method: :delete, data: { confirm: 'Are you sure?' }, remote:true %>
+  </td>
+</tr>

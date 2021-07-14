@@ -1,0 +1,5 @@
+<h6>Total Lent</h6>
+<h4>$<%= current_user.total_owes %></h4>
+<%= link_to new_transaction_path, remote: true do %>
+  Lend Money
+<% end %>

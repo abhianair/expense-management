@@ -1,0 +1,8 @@
+var select = $('.transaction-<%= @transaction.id %>').find('.transaction-status');
+var old_status = $(select).data('status');
+$(select).removeClass('status_'+old_status);
+$(select).addClass('status_<%= @transaction.status %>');
+$(select).data('status', '<%= @transaction.status %>');
+$("#mainaccountTransaction").html("<%= j render 'home/partials/people_owes' %>");
+$("#mainaccountBalance").html("<%= j render 'home/partials/account_balance' %>");
+success_notice('<%= @response %>')

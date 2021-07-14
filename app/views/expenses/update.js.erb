@@ -1,0 +1,10 @@
+if(<%= @flag %>){
+  $("#mainaccountExpense").html("<%= j render 'home/partials/account_expense'  %>");
+  $("#mainaccountBalance").html("<%= j render 'home/partials/account_balance'  %>");
+  $('#expenses_table_body').find('.expense-'+<%= @expense.id %>).remove();
+  $('#expenses_table_body').append("<%= j render 'home/expenses/expense_table_row', expense:@expense   %>")
+  success_notice('<%= @message %>')
+  $('#expense_modal').modal('hide');
+}else{
+  failure_notice('<%= @message %>')
+}

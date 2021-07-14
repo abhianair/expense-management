@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="row section_gap lg">
+    <div class="col-md-3 col-sm-12">
+      <div class="common_white_box" id="mainaccountBalance">
+          <%= render 'home/partials/account_balance' %>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-12">
+      <div class="common_white_box" id="mainaccountExpense">
+        <%= render 'home/partials/account_expense' %>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-12">
+      <div class="common_white_box" id="mainaccountTransaction">
+        <%= render 'home/partials/people_owes' %>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row section_gap lg">
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Transactions</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Expenses</button>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <!-- people ows -->
+        <h4 class="section_gap lg">Transactions</h4>
+        <div class="row section_gap lg">
+          <div class="d-flex">
+            <div class="filter-label v-align">
+              Filter by recipient:
+            </div>
+            <div class="user-select select-bx">
+              <select class="form-select filter-select" name="" id="filter-recipient">
+                <option value="0" selected>All</option>
+                <% current_user.recipients.distinct.each do |user| %>
+                  <option value="<%= user.id %>"><%= user.email %></option>
+                <% end %>
+              </select>
+            </div>
+            <div class="filter-label v-align">
+              status:
+            </div>
+            <div class="status-select select-bx">
+              <select class="form-select filter-select" name="" id="filter-status">
+                <option value="0" selected>All</option>
+                <% LoanMoney.statuses.keys.map { |w| [w.humanize, w] }.each do |index, value| %>
+                  <option value="<%= value %>"><%= index %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row section_gap lg">
+          <%= render 'home/expenses/people_owes_table' %>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <h4 class="section_gap lg">Expenses</h4>
+        <%= render 'home/expenses/expense_table' %>
+      </div>
+    </div>
+  </div>
+
+<!-- add account balance modal -->
+<div class="modal fade" id="BalanceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_tag({:controller => 'home', :action => 'add_account_balance'}, :remote => true) do |f| %>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add balance</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <input type="text" name="amount" value="" placeholder="amount" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add Balance</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<!-- add expense & transactions modal -->
+<div class="modal fade" id="expense_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>

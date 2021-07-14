@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Expense App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= render 'layouts/notice' %>
+    <% if user_signed_in? %>
+      <%= render 'layouts/navbar' %>
+    <% end %>
+    <main class="main-container">
+      <%= yield %>
+    </main>
+    
+    <script type="text/javascript">
+      function success_notice(message){
+        var html = '<div class="PopupNotice success"><p>'+message+'</p></div>';
+        if(!$('.PopupNotice').length){
+          $('body').append(html);
+          setTimeout(function(){
+            $('.PopupNotice').fadeOut("slow",function(){
+              $(this).remove();
+            })
+          }, 4000);
+        }
+      }
+      function failure_notice(message){
+        var html = '<div class="PopupNotice failure"><p>'+message+'</p></div>';
+        if(!$('.PopupNotice').length){
+          $('body').append(html);
+          setTimeout(function(){
+            $('.PopupNotice').fadeOut("slow",function(){
+              $(this).remove();
+            })
+          }, 4000);
+        }
+      }
+    </script>
+  </body>
+</html>
